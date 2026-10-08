@@ -1,0 +1,38 @@
+.grainient-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 82% 50%, #142a43, transparent 58%), #050608;
+}
+.grainient-container canvas { display: block; width: 100%; height: 100%; opacity: 0; }
+.grainient-container[data-renderer='ready'] canvas { opacity: 1; }
+.portfolio-body { position: relative; isolation: isolate; background: #0b0b0d; }
+.page-ambient { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.page-ambient-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.page-ambient-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #030407a6, #03040770 62%, #03040780), radial-gradient(ellipse at 78% 50%, transparent 12%, #03040766);
+  pointer-events: none;
+}
+.portfolio-body-content { position: relative; z-index: 1; }
+.portfolio-body .work {
+  background: rgba(9, 10, 18, 0.22);
+  border-color: rgba(219, 215, 255, 0.12);
+}
+.portfolio-body .contact {
+  background: radial-gradient(ellipse at 90% 55%, #142a4318, transparent 65%), rgba(7, 8, 15, 0.18);
+}
+.portfolio-body .skill-card {
+  background: linear-gradient(135deg, rgba(29, 28, 44, 0.72), rgba(12, 13, 24, 0.6));
+  border-color: rgba(206, 200, 235, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.portfolio-body .muted { color: #a09baa; }
+.portfolio-body .career-highlights { color: #aaa6b7; }
+.portfolio-body .project-en, .portfolio-body .skill-en { color: #a29aae !important; }
+.portfolio-body .toolbar-note { color: #a39eaf; }

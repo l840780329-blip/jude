@@ -1,0 +1,116 @@
+.hero-lettering {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(68vw, 1140px, 98svh);
+  aspect-ratio: 1468 / 445;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  isolation: isolate;
+}
+.hero-lettering-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 20px #09071355);
+}
+.hero-lettering-shine {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  mask-image: url('/assets/hero-portfolio-lettering.png');
+  -webkit-mask-image: url('/assets/hero-portfolio-lettering.png');
+  mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mix-blend-mode: screen;
+}
+.hero-lettering-shine::before {
+  content: '';
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -70%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, #88bdff40 15%, #d1e2ffb3 34%, white 46%, white 54%, #d1e2ffcc 64%, #90b8ff55 82%, transparent);
+  opacity: 0;
+  animation: lettering-sweep 6.4s ease-in-out infinite;
+}
+@keyframes lettering-sweep {
+  0%, 6% { opacity: 0; transform: translateX(0) skewX(-18deg); }
+  10% { opacity: 1; }
+  54% { opacity: 1; transform: translateX(500%) skewX(-18deg); }
+  58%, 100% { opacity: 0; transform: translateX(500%) skewX(-18deg); }
+}
+.hero-lettering-filters { position: absolute; pointer-events: none; }
+.hero-lettering-outline {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  mix-blend-mode: screen;
+  mask-image: linear-gradient(110deg, transparent 43%, #000b 47%, black 49%, black 52%, #000b 55%, transparent 59%);
+  -webkit-mask-image: linear-gradient(110deg, transparent 43%, #000b 47%, black 49%, black 52%, #000b 55%, transparent 59%);
+  mask-size: 300% 100%;
+  -webkit-mask-size: 300% 100%;
+  mask-position: 100% center;
+  -webkit-mask-position: 100% center;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  animation: lettering-outline-sweep 6.4s ease-in-out infinite;
+}
+.hero-lettering-outline img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: url('#hero-lettering-contour');
+}
+@keyframes lettering-outline-sweep {
+  0%, 6% { opacity: 0; mask-position: 100% center; -webkit-mask-position: 100% center; }
+  10% { opacity: 1; }
+  54% { opacity: 1; mask-position: 0% center; -webkit-mask-position: 0% center; }
+  58%, 100% { opacity: 0; mask-position: 0% center; -webkit-mask-position: 0% center; }
+}
+.hero-lettering-glint {
+  position: absolute;
+  width: calc(clamp(20px, 2.5vw, 40px) * var(--glint-scale));
+  height: calc(clamp(25px, 3vw, 48px) * var(--glint-scale));
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.4) rotate(10deg);
+  animation: lettering-glint var(--glint-duration) ease-in-out var(--glint-delay) infinite;
+  filter: drop-shadow(0 0 4px #d5ddff99);
+}
+.hero-lettering-glint::before,
+.hero-lettering-glint::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(90deg, transparent, #d0dbff9c 30%, white 50%, #d0dbff9c 70%, transparent);
+}
+.hero-lettering-glint::before { left: 0; top: calc(50% - 0.75px); width: 100%; height: 1.5px; }
+.hero-lettering-glint::after { top: 0; left: calc(50% - 0.75px); height: 100%; width: 1.5px; background: linear-gradient(180deg, transparent, #d0dbff9c 30%, white 50%, #d0dbff9c 70%, transparent); }
+.hero-lettering-glint i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  top: calc(50% - 1.5px);
+  left: calc(50% - 1.5px);
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 6px #eff3ff, 0 0 15px #acb7ff88;
+}
+@keyframes lettering-glint {
+  0%, 9%, 29%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.4) rotate(10deg); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) rotate(10deg); }
+  21% { opacity: 0.45; transform: translate(-50%, -50%) scale(0.75) rotate(10deg); }
+}
+.hero-lettering[data-animated='false'] .hero-lettering-shine::before,
+.hero-lettering[data-animated='false'] .hero-lettering-outline,
+.hero-lettering[data-animated='false'] .hero-lettering-glint { animation-play-state: paused; }
+@media(max-width:600px) {
+  .hero-lettering { width: 78vw; top: 44%; }
+  .hero-lettering-glint { width: calc(19px * var(--glint-scale)); height: calc(24px * var(--glint-scale)); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .hero-lettering-shine, .hero-lettering-outline, .hero-lettering-glint { display: none; }
+}
