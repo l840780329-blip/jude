@@ -60,7 +60,7 @@ function Hero({ enabled = true }) {
   <div className="hero-composition container">
    <h1 id="hero-title" className="sr-only">李昊哲 · Portfolio · 视觉、AI 与品牌设计作品集</h1>
    <p className="hero-kicker">A CURIOUS MIND. A NEW PERSPECTIVE.</p>
-   <HeroLettering enabled={playing && !reducedMotion} />
+   <div className="hero-visual"><HeroLettering enabled={playing && !reducedMotion} /></div>
    <div className="hero-caption">
     <p className="hero-caption-title">让想象，有迹可循。</p>
     <p className="hero-caption-description">李昊哲 · 视觉设计师 / AI 设计师 / 品牌设计师</p>
