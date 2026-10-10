@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { useEffect, useRef, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { Plus, X, Menu, Copy, Check, Mail, Pause, Play, Layers, Sparkles, Box, ScanLine } from 'lucide-react';
 import './styles.css';
 import './hero.css';
@@ -132,7 +133,7 @@ function Career() {
   </ol>
  </div>;
 }
-function About(){return <section id="about" className="about section container"><SectionLabel number="01">ABOUT ME / 关于我</SectionLabel><div className="about-grid"><div className="portrait-column"><div className="portrait-frame"><img src="/assets/portrait-user.png" alt="李昊哲的个人肖像" loading="lazy" decoding="async"/><span className="portrait-caption">LI HAOZHE / DESIGNER</span></div><div className="about-name"><h3>李昊哲</h3><span>VISUAL · AI · BRAND</span></div><p className="education">{profile.education}</p><CopyContact value={profile.phone} label="微信 / 电话"/><a className="about-email" href={`mailto:${profile.email}`}>{profile.email}<Mail size={15}/></a></div><div className="about-content"><h2><TechLabel text="保持好奇，"/><br/><TechLabel text="让设计多一种可能"/><span className="accent">.</span></h2><p className="about-description">一个有着产品思维的设计师。擅长三维、插画与互联网视觉设计，从用户增长活动到 Web3 品牌传播，关注设计背后的产品逻辑，也相信好的视觉能让体验更有温度。</p><p className="about-description">在抖音精选从 0 到 1 的过程中，持续探索 AI 与视觉设计的结合。把新工具转化为新的表达，让想象落地，也让设计更贴近真实的业务与用户。</p><Career /></div></div><div className="stats"><div><strong><TechLabel interactiveOnly text={String(profile.experience.length).padStart(2,'0')}/><span>家</span></strong><p>高途 / 抖音 / Gate / WasabiCard</p></div><div><strong><TechLabel interactiveOnly text="0"/><span>→</span><TechLabel interactiveOnly text="1"/></strong><p>参与抖音精选 App 成长</p></div><div><strong><TechLabel interactiveOnly text="08"/><span>组</span></strong><p>本次精选项目</p></div><div><strong><TechLabel interactiveOnly text={String(profile.tools.length).padStart(2,'0')}/><span>款</span></strong><p>常用设计与创作工具</p></div></div></section>}
+function About(){return <section id="about" className="about section container"><SectionLabel number="01">ABOUT ME / 关于我</SectionLabel><div className="about-grid"><div className="portrait-column"><div className="portrait-frame"><img src="/assets/portrait-user.png" alt="李昊哲的个人肖像" loading="lazy" decoding="async"/><span className="portrait-caption">LI HAOZHE / DESIGNER</span></div><div className="about-name"><h3>李昊哲</h3><span>VISUAL · AI · BRAND</span></div><p className="education">{profile.education}</p><CopyContact value={profile.phone} label="微信 / 电话"/><a className="about-email" href={`mailto:${profile.email}`}>{profile.email}<Mail size={15}/></a></div><div className="about-content"><h2><TechLabel text="保持好奇，"/><br/><TechLabel text="让设计多一种可能"/><span className="accent">.</span></h2><p className="about-description">一个有着产品思维的设计师。擅长三维、插画与互联网视觉设计，从用户增长活动到 Web3 品牌传播，关注设计背后的产品逻辑，也相信好的视觉能让体验更有温度。</p><p className="about-description">在抖音精选从 0 到 1 的过程中，持续探索 AI 与视觉设计的结合。把新工具转化为新的表��，让想象落地，也让设计更贴近真实的业务与用户。</p><Career /></div></div><div className="stats"><div><strong><TechLabel interactiveOnly text={String(profile.experience.length).padStart(2,'0')}/><span>家</span></strong><p>高途 / 抖音 / Gate / WasabiCard</p></div><div><strong><TechLabel interactiveOnly text="0"/><span>→</span><TechLabel interactiveOnly text="1"/></strong><p>参与抖音精选 App 成长</p></div><div><strong><TechLabel interactiveOnly text="08"/><span>组</span></strong><p>本次精选项目</p></div><div><strong><TechLabel interactiveOnly text={String(profile.tools.length).padStart(2,'0')}/><span>款</span></strong><p>常用设计与创作工具</p></div></div></section>}
 function Work({onSelect}) {
  const [category, setCategory] = useState('全部');
  const [archiveOpen, setArchiveOpen] = useState(false);
@@ -191,6 +192,7 @@ function App() {
   </div></main>
   <MusicPlayer hidden={Boolean(project)}/><Meteors enabled={effectsEnabled}/><GlowCursor enabled={effectsEnabled}/>
   <ProjectDialog project={project} onClose={() => setProject(null)}/>
+  <Analytics />
  </VisualEffectsContext.Provider>;
 }
 
