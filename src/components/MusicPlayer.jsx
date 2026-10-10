@@ -19,6 +19,7 @@ export default function MusicPlayer({ hidden = false }) {
   const [keyboardFocus, setKeyboardFocus] = useState(false);
   const [touchExpanded, setTouchExpanded] = useState(false);
   const [error, setError] = useState('');
+  const [waitingForInteraction, setWaitingForInteraction] = useState(false);
   const unfolded = hovered || keyboardFocus || touchExpanded || expanded || Boolean(error);
 
   useEffect(() => { audio.current.volume = volume; }, [volume]);
@@ -28,20 +29,21 @@ export default function MusicPlayer({ hidden = false }) {
     let cancelled = false;
     let starting = false;
     const detach = () => {
-      window.removeEventListener('pointerdown', unlock);
-      window.removeEventListener('keydown', unlock);
+      window.removeEventListener('pointerup', unlock, true);
+      window.removeEventListener('click', unlock, true);
+      window.removeEventListener('keydown', unlock, true);
     };
     const cancel = () => { cancelled = true; detach(); };
     cancelAutoStart.current = cancel;
-    async function start() {
-      if (disposed || cancelled || starting || !media.paused) return;
+    async function start(fromInteraction = false) {
+      if (disposed || cancelled || (starting && !fromInteraction)) return;
+      if (!media.paused) { cancel(); return; }
       starting = true;
       try { await media.play(); detach(); }
       catch (failure) {
         if (disposed || cancelled) return;
         if (failure.name === 'NotAllowedError') {
-          window.addEventListener('pointerdown', unlock);
-          window.addEventListener('keydown', unlock);
+          setWaitingForInteraction(true);
         }
       }
       finally { starting = false; }
@@ -49,9 +51,13 @@ export default function MusicPlayer({ hidden = false }) {
     function unlock(event) {
       if (!event.isTrusted || player.current?.contains(event.target)) return;
       if (event.type === 'keydown' && ['Shift', 'Control', 'Alt', 'Meta', 'Escape', 'Tab'].includes(event.key)) return;
-      detach();
-      start();
+      // Invoke play during the trusted gesture, including touch release and clicks.
+      // A still-pending initial autoplay attempt must not swallow the first click.
+      start(true);
     }
+    window.addEventListener('pointerup', unlock, true);
+    window.addEventListener('click', unlock, true);
+    window.addEventListener('keydown', unlock, true);
     start();
     return () => { disposed = true; cancel(); cancelAutoStart.current = () => {}; media.pause(); };
   }, []);
@@ -91,13 +97,13 @@ export default function MusicPlayer({ hidden = false }) {
     onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setKeyboardFocus(false); }}
     onKeyDown={event => { if (event.key === 'Escape') { setExpanded(false); setTouchExpanded(false); setKeyboardFocus(false); } }}>
     <audio ref={audio} src="/assets/runaway.m4a" preload="auto" autoPlay loop
-      onPlay={() => { cancelAutoStart.current(); setPlaying(true); }} onPause={() => setPlaying(false)}
+      onPlay={() => { cancelAutoStart.current(); setWaitingForInteraction(false); setPlaying(true); }} onPause={() => setPlaying(false)}
       onLoadedMetadata={readDuration} onDurationChange={readDuration}
       onTimeUpdate={() => setPosition(audio.current.currentTime)}
       onError={() => { setPlaying(false); setPending(false); setError('音频加载失败，请重试'); }} />
     <div className="music-main">
       <button className="music-play" onClick={togglePlayback} disabled={pending}
-        title="音乐播放器 · 移入展开"
+        title={waitingForInteraction ? '点击页面即可开启音乐 · 移入展开' : '音乐播放器 · 移入展开'}
         onPointerDown={event => { if (event.pointerType !== 'mouse') setTouchExpanded(true); }}
         aria-label={playing ? '暂停音乐：Runaway' : '播放音乐：Runaway'}>
         {playing ? <Pause size={16} fill="currentColor" /> : <Play size={16} fill="currentColor" />}

@@ -1,6 +1,6 @@
 # 作品与图片核对记录
 
-作品区按 5 个分类筛选，展示 27 个独立项目卡片；每张卡片仅打开对应项目的图集。
+作品区按 6 个分类筛选，展示 35 个独立项目卡片；每张卡片仅打开对应项目的图集。
 
 96 页作品与章节图全部保留，未遗漏、未重复。原始封面（1）与结束页（99）另设入口；个人简历页（2）不插入作品区。个人介绍及工作经历保持不变。
 
@@ -11,8 +11,9 @@
 | UG 活动设计 | 6 | 29 |
 | 抖音精选活动设计 | 8 | 22 |
 | 封面模版设计 | 1 | 4 |
-| Gate 品牌设计 | 7 | 24 |
+| Gate 品牌设计 | 10 | 31 |
 | WasabiCard 品牌设计 | 5 | 17 |
+| PPT 设计 | 5 | 76 |
 
 ## 每个项目对应的 PDF 页面
 
@@ -43,11 +44,14 @@
 ### Gate 品牌设计
 
 - Gate · 品牌宣发运营视觉：60, 61, 62, 63, 64, 65, 66, 58, 59（封面：60）
+- Gate · 2025 Annual Gala 年会官网：补充文件第 1、2 页与原作品集第 78 页（封面：该项目第 3 张，即原第 78 页）
+- Gate × Suntory · Web3 联名活动：补充文件第 3、4 页（封面：补充第 3 页）
+- Gate × Oracle Red Bull Racing · 赛车合作：补充文件第 5、6 页（封面：补充第 5 页）
+- Gate · 品牌官网 UI 设计：补充文件第 7 页（封面：该页顶部独立裁切，详情保留整页）
 - Gate · Web3 机场投放：68, 69, 70, 71, 72, 73, 67（封面：70）
 - Gate · Exclusive Cocktail Evening：74（封面：74）
 - Gate · Malta VIP Dinner：75（封面：75）
 - Gate · Institutional Circle Hong Kong：76, 77（封面：76）
-- Gate · Open the Gate 品牌页面：78（封面：78）
 - Gatecast · 访谈视觉与场景：79, 80, 81（封面：79）
 
 ### WasabiCard 品牌设计
@@ -57,3 +61,25 @@
 - WasabiCard · Stablecoin & Payments 展会：91, 92, 93, 94, 95, 90（封面：91）
 - WasabiCard · 品牌周边设计：96, 97（封面：96）
 - WasabiCard · 品牌贴纸设计：98（封面：98）
+
+### PPT 设计
+
+五份演示分别存放于 `public/assets/ppt/` 下的独立项目目录，均完整收录每一页。原有作品 PDF 的 96 页与新增演示的 76 页合计 172 页。
+
+| 项目 | 来源 | 页数 | 资源目录 |
+| --- | --- | ---: | --- |
+| WasabiCard · TOKEN2049 赞助方案 | WasabiCard TOKEN2049 Singapore Side Event – Sponsorship Deck.pdf | 10 | wasabi-sponsorship |
+| WasabiCard · Sales Deck V1.8 | Sales Deck V1.8.pdf | 25 | wasabi-sales |
+| WasabiCard · TOKEN2049 展台宣传 | token2049展台宣传片.pdf | 14 | token2049-booth |
+| WasabiCard · PPT 设计汇总 | ppt设计汇总.pdf | 12 | ppt-collection |
+| Gate · ADEN 产品演示 | gate ppt.pdf | 15 | gate-presentation |
+
+演示数据及尺寸来自 `src/ppt-projects.js`。所有页面按原顺序展示，封面使用第 1 页；保留全部演示图片，已移除 PDF 在线查看及下载入口。展台宣传来源是 PDF，按演示页面展示。
+
+## Gate 补充作品
+
+`gate项目新增.pdf` 的 7 页已完整加入 Gate 品牌设计。其中年会第 1、2 页补入已有年会项目，原第 78 页保留；其他三组为独立项目。页面资源存放于 `public/assets/gate/` 的四个独立目录，数据及尺寸见 `src/gate-projects.js`。合计 35 个项目 / 179 页，Gate 为 10 个项目 / 31 页。
+
+长页按 2200px 宽度渲染，网页使用 WebP 与 640px / 1280px 卡片预览。详情中的 7 页全部保持原始比例与完整内容，不提供该补充 PDF 的下载入口。个人介绍及经历保持不变。
+
+展示顺序：Gate 补充的四个项目依次位于该分类第 2-5 位；年会封面使用第三张作品图（原作品集第 78 页），图集原顺序不变。

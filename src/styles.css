@@ -63,6 +63,11 @@
 
 /* Project covers and captions share a directional BorderGlow frame. */
 .projects .project-frame{min-width:0;height:100%;border-color:#ffffff1c}
+.work-toolbar{flex-wrap:wrap;gap:16px 24px}
+.work{overflow-x:clip}
+.work-toolbar .filters{flex-wrap:wrap;flex:1}
+.toolbar-note{white-space:nowrap}
+.is-presentation .project-image img{object-fit:contain}
 .project-frame > .border-glow-inner{height:100%;overflow:visible;border-radius:inherit}
 .project-frame .project-card{width:100%;height:100%;padding:12px;border-radius:inherit}
 .project-frame .project-image{border-radius:14px}

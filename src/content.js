@@ -1,4 +1,6 @@
 import dimensions from './asset-dimensions.js';
+import { pptProjects, pptDimensions } from './ppt-projects.js';
+import { gateAnnualProject, gateProjects, gateDimensions } from './gate-projects.js';
 // Project assets come from the portfolio; career details follow the latest supplied résumé.
 export const profile = {
  name: '李昊哲', email: '840780329@qq.com', phone: '13012252051',
@@ -41,7 +43,7 @@ export const profile = {
   }
  ]
 };
-export const projectCategories = ["UG 活动设计", "抖音精选活动设计", "封面模版设计", "Gate 品牌设计", "WasabiCard 品牌设计"];
+export const projectCategories = ["UG 活动设计", "抖音精选活动设计", "封面模版设计", "Gate 品牌设计", "WasabiCard 品牌设计", "PPT 设计"];
 export const projects = [
  {
   "id": "ug-rabbit",
@@ -570,6 +572,8 @@ export const projects = [
    }
   ]
  },
+ gateAnnualProject,
+ ...gateProjects,
  {
   "id": "gate-airport",
   "title": "Gate · Web3 机场投放",
@@ -689,32 +693,6 @@ export const projects = [
     "pages": [
      76,
      77
-    ]
-   }
-  ]
- },
- {
-  "id": "gate-page",
-  "title": "Gate · Open the Gate 品牌页面",
-  "english": "GATE · OPEN THE GATE, OPEN THE FUTURE",
-  "category": "Gate 品牌设计",
-  "cover": 78,
-  "pages": [
-   78
-  ],
-  "description": "以模块化视觉与品牌符号组织 Gate 活动页面，呈现品牌内容与全球活动。",
-  "tags": [
-   "品牌页面",
-   "模块化视觉",
-   "活动传播"
-  ],
-  "client": "Gate",
-  "role": "品牌 / 活动页面设计",
-  "chapters": [
-   {
-    "title": "项目展示",
-    "pages": [
-     78
     ]
    }
   ]
@@ -912,18 +890,25 @@ export const projects = [
     ]
    }
   ]
- }
+ },
+ ...pptProjects
 ];
 export const portfolioExtras = [
  { page: 1, title: '作品集原始封面' },
  { page: 99, title: '作品集结束页' }
 ];
-export const asset = n => `/assets/page-${String(n).padStart(2,'0')}.webp`;
-export const imageSize = n => dimensions[String(n)];
+const assetBase = n => typeof n === 'number'
+ ? `/assets/page-${String(n).padStart(2,'0')}.webp`
+ : n.startsWith('gate/') ? `/assets/${n}.webp` : `/assets/ppt/${n}.webp`;
+export const asset = assetBase;
+export const imageSize = n => typeof n === 'number' ? dimensions[String(n)] : pptDimensions[n] ?? gateDimensions[n];
 
-export const previewProps = n => ({
- src: `/assets/previews/page-${String(n).padStart(2, '0')}-1280.webp`,
- srcSet: `/assets/previews/page-${String(n).padStart(2, '0')}-640.webp 640w, /assets/previews/page-${String(n).padStart(2, '0')}-1280.webp 1280w`,
+export const previewProps = n => {
+ const path = typeof n === 'number' ? `/assets/previews/page-${String(n).padStart(2, '0')}` : assetBase(n).replace(/\.webp$/, '');
+ return {
+ src: `${path}-1280.webp`,
+ srcSet: `${path}-640.webp 640w, ${path}-1280.webp 1280w`,
  sizes: '(max-width: 600px) calc(100vw - 40px), (max-width: 900px) calc((100vw - 68px) / 2), (max-width: 1812px) calc((100vw - 140px) / 2), 836px',
  decoding: 'async'
-});
+ };
+};
